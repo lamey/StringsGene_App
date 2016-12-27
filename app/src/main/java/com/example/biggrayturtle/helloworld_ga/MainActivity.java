@@ -8,6 +8,7 @@ import android.view.View;
 
 /** John Tran
  *  Main class. Intializes population and serves as a driver class
+ *  TODO: Make this program more efficient to where it can deal with more chars quicker
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -27,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
      */
     public void createEvolution(View v) throws InterruptedException{
         TextView textView = (TextView) findViewById(R.id.text);
-        TextView textViewBest = (TextView) findViewById(R.id.textBest);
         textView.setText("");
 
         EditText editText = (EditText) findViewById(R.id.editText);
@@ -53,13 +53,12 @@ public class MainActivity extends AppCompatActivity {
         Chromosome best = population.getPopulation()[0];
 
         while ((i++ <= maxGenerations) && (best.getFitness() != 0)) {
-            textViewBest.setText("Most fit: " + best.getGene());
             textView.append("Gen " + i + ": " + best.getGene() + "\n");
             population.evolve();
             best = population.getPopulation()[0];
             //Thread.sleep(70);
         }
-        textViewBest.setText("Most fit: " + best.getGene());
+
         textView.append("Gen " + i + ": " + best.getGene());
     }
 
