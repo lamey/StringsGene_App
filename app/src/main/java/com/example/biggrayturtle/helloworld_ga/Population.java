@@ -1,18 +1,32 @@
 package com.example.biggrayturtle.helloworld_ga;
+
 import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * Class that holds and manipulates the population of Chromosomes
+ */
 public class Population {
 
 	private float elitismRatio;
 	private float mutationRatio;
 	private float crossoverRatio;
+
+	//array of Strings aka Chromosomes
 	private Chromosome[] popArr;
 
+	//population size for tournament selection
 	private static final int TOURNAMENT_SIZE = 3;
 
 	private static Random rand = new Random();
 
+	/**
+	 * Constructor for Population. Initializes popArr with random Chromosomes
+	 * @param size size of population
+	 * @param crossoverRatio ratio at which the parents mate
+	 * @param elitismRatio ratio of which of the population would stay the same
+	 * @param mutationRatio ratio of which of the population would be mutated
+     */
 	public Population(int size, float crossoverRatio, float elitismRatio, float mutationRatio) {
 		this.crossoverRatio = crossoverRatio;
 		this.elitismRatio = elitismRatio;
@@ -27,6 +41,9 @@ public class Population {
 		Arrays.sort(this.popArr);
 	}
 
+	/**
+	 * "Evolves" the population by mating and occasional mutations
+	 */
 	public void evolve() {
 		Chromosome[] buffer = new Chromosome[popArr.length];
 
@@ -71,12 +88,19 @@ public class Population {
 		popArr = buffer;
 	}
 
+	/**
+	 * returns population
+	 * @return popArr population of Chromosomes
+     */
 	public Chromosome[] getPopulation() {
 		return popArr;
 	}
 
-	//choose 2 random parents from the population to crossover
-	//using tournament selection
+	/**
+	 * Chooses 2 random parents from the population to crossover
+	 * using tournament selection
+	 * @return parents the two best fit parents from tournament selection
+     */
 	private Chromosome[] selectParents() {
 		Chromosome[] parents = new Chromosome[2];
 
@@ -93,6 +117,4 @@ public class Population {
 		}
 		return parents;
 	}
-
-
 }

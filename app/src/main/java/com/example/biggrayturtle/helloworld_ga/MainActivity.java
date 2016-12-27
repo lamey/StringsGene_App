@@ -6,6 +6,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.view.View;
 
+/** John Tran
+ *  Main class. Intializes population and serves as a driver class
+ */
 public class MainActivity extends AppCompatActivity {
 
     private static String target = "";
@@ -16,6 +19,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    /**
+     * Creates initial population every time onClick is called from activity_main.xml
+     * and drives "evolution" and prints the most fit String.
+     * @param v action variable from onClick.
+     * @throws InterruptedException
+     */
     public void createEvolution(View v) throws InterruptedException{
         TextView textView = (TextView) findViewById(R.id.text);
         TextView textViewBest = (TextView) findViewById(R.id.textBest);
@@ -54,9 +63,18 @@ public class MainActivity extends AppCompatActivity {
         textView.append("Gen " + i + ": " + best.getGene());
     }
 
+    /**
+     * Sets target gene
+     * @param editText is from user input
+     */
     public void setTarget(String editText) {
         target = editText;
     }
+
+    /**
+     * returns target gene
+     * @return target is the target gene
+     */
     public String getTarget() {
         return target;
     }

@@ -1,9 +1,11 @@
 package com.example.biggrayturtle.helloworld_ga;
 
-import android.support.v7.app.AppCompatActivity;
 import java.util.Random;
 
-public class Chromosome extends AppCompatActivity implements Comparable<Chromosome> {
+/**
+ * A class that a single Chromosome that has its fitness and gene aka its random String
+ */
+public class Chromosome implements Comparable<Chromosome> {
 
 	//to get target gene
 	static MainActivity main = new MainActivity();
@@ -13,22 +15,38 @@ public class Chromosome extends AppCompatActivity implements Comparable<Chromoso
 
 	private static final Random rand = new Random();
 
+	/**
+	 * Constructor for each Chromosome, initializing gene and fitness
+	 * @param gene random String that is generated from generateRandom()
+     */
 	public Chromosome(String gene) {
 		this.gene = gene;
 		this.fitness = calculateFitness(gene);
 	}
 
+	/**
+	 * returns the Chromosome's String
+	 * @return gene is this Chromosome's String
+     */
 	public String getGene() {
 		return gene;
 	}
 
+	/**
+	 * returns the Chromosome's fitness
+	 * @return fitness from calculateFitness(String gene)
+     */
 	public int getFitness() {
 		return fitness;
 	}
 
-	//calculates fitness with the abs val of the difference
-	//between the gene and the target gene. If the fitness is closer
-	//to 0, it has higher fitness.
+	/**
+	 * Calculates fitness with the abs val of the difference
+	 * between the gene and the target gene. If the fitness is closer
+	 * to 0, it has higher fitness.
+	 * @param gene the random String that the Chromosome is assigned with
+	 * @return fitness is the fitness score calculated from gene and the target gene
+     */
 	private int calculateFitness(String gene) {
 		int fitness = 0;
 		char[] arr = gene.toCharArray();
@@ -38,7 +56,10 @@ public class Chromosome extends AppCompatActivity implements Comparable<Chromoso
 		return fitness;
 	}
 
-	//change a random charactor in the gene
+	/**
+	 * Chooses random character in the gene to mutate
+	 * @return a new gene
+     */
 	public Chromosome mutate() {
 		char[] arr = gene.toCharArray();
 		int idx = rand.nextInt(arr.length);
@@ -48,8 +69,11 @@ public class Chromosome extends AppCompatActivity implements Comparable<Chromoso
 		return new Chromosome(String.valueOf(arr));
 	}
 
-	//mates by copying from halves that are create from a randomly chosen
-	//pivot point
+	/**
+	 * Mates by copying from halves that are create from a randomly chosen pivot point
+	 * @param mate the gene that is being mated with this Chromosome's gene
+	 * @return two new chromosomes, the children
+     */
 	public Chromosome[] mate(Chromosome mate) {
 		char[] gene1 = gene.toCharArray();
 		char[] gene2 = mate.gene.toCharArray();
@@ -69,7 +93,10 @@ public class Chromosome extends AppCompatActivity implements Comparable<Chromoso
 				new Chromosome(String.valueOf(child2))};
 	}
 
-	//makes random string
+	/**
+	 * generates random String, aka the gene
+	 * @return a random gene
+     */
 	public static Chromosome generateRandom() {
 		char[] arr = new char[main.getTarget().toCharArray().length];
 		for (int i = 0; i < arr.length; i++) {
@@ -79,7 +106,11 @@ public class Chromosome extends AppCompatActivity implements Comparable<Chromoso
 		return new Chromosome(String.valueOf(arr));
 	}
 
-	//overrides compareTo
+	/**
+	 * overrides compareTo to compare fitness scores for tournament selection
+	 * @param c The Chromosome that is be compared to this Chromosome
+	 * @return -1 if fitness < c.fitness, 1 vice versa, 0 if neither
+     */
 	public int compareTo(Chromosome c) {
 		if (fitness < c.fitness) {
 			return -1;
@@ -88,5 +119,4 @@ public class Chromosome extends AppCompatActivity implements Comparable<Chromoso
 		}
 		return 0;
 	}
-
 }

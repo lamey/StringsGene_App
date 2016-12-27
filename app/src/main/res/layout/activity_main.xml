@@ -31,7 +31,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Evolve"/>
-
     </LinearLayout>
 
     <ScrollView
@@ -43,5 +42,4 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </ScrollView>
-
 </RelativeLayout>
