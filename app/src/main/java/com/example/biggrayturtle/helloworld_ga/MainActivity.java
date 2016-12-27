@@ -2,10 +2,13 @@ package com.example.biggrayturtle.helloworld_ga;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.view.View;
-import java.lang.Thread;
+
 public class MainActivity extends AppCompatActivity {
+
+    private static String target = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -13,10 +16,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void createEvolution(View v)  throws InterruptedException{
+    public void createEvolution(View v) throws InterruptedException{
         TextView textView = (TextView) findViewById(R.id.text);
         TextView textViewBest = (TextView) findViewById(R.id.textBest);
         textView.setText("");
+
+        EditText editText = (EditText) findViewById(R.id.editText);
+        setTarget(editText.getText().toString());
 
         final int populationSize = 2048;
 
@@ -46,5 +52,12 @@ public class MainActivity extends AppCompatActivity {
         }
         textViewBest.setText("Most fit: " + best.getGene());
         textView.append("Gen " + i + ": " + best.getGene());
+    }
+
+    public void setTarget(String editText) {
+        target = editText;
+    }
+    public String getTarget() {
+        return target;
     }
 }

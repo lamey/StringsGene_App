@@ -1,11 +1,15 @@
 package com.example.biggrayturtle.helloworld_ga;
+
+import android.support.v7.app.AppCompatActivity;
 import java.util.Random;
-public class Chromosome implements Comparable<Chromosome> {
+
+public class Chromosome extends AppCompatActivity implements Comparable<Chromosome> {
+
+	//to get target gene
+	static MainActivity main = new MainActivity();
+
 	private final String gene;
 	private final int fitness;
-
-	//can be any string
-	private static final char[] TARGET_GENE = "Hello world!".toCharArray();
 
 	private static final Random rand = new Random();
 
@@ -29,7 +33,7 @@ public class Chromosome implements Comparable<Chromosome> {
 		int fitness = 0;
 		char[] arr = gene.toCharArray();
 		for (int i = 0; i < arr.length; i++) {
-			fitness += Math.abs(((int)arr[i]) - ((int) TARGET_GENE[i]));
+			fitness += Math.abs(((int)arr[i]) - ((int) main.getTarget().toCharArray()[i]));
 		}
 		return fitness;
 	}
@@ -67,7 +71,7 @@ public class Chromosome implements Comparable<Chromosome> {
 
 	//makes random string
 	public static Chromosome generateRandom() {
-		char[] arr = new char[TARGET_GENE.length];
+		char[] arr = new char[main.getTarget().toCharArray().length];
 		for (int i = 0; i < arr.length; i++) {
 			arr[i] = (char)(rand.nextInt(90) + 32);
 		}
